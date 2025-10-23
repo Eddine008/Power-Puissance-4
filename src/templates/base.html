@@ -1,0 +1,37 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{if .Title}}{{.Title}}{{else}}Power'4 Web{{end}}</title>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+    <header>
+<div class="container">
+    <h1><a href="/">Power'4 Web</a></h1>
+    <nav aria-label="Navigation principale">
+<ul>
+<li><a href="/">Accueil</a></li>
+<li><a href="/game/init">Nouvelle partie</a></li>
+<li><a href="/game/scoreboard">Scoreboard</a></li>
+    </ul>
+    </nav>
+    </div>
+    </header>
+
+    <main class="container">
+        {{block "content" .}}
+        {{end}}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Power'4 Web. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
+{{end}}
