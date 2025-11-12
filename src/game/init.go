@@ -26,3 +26,6 @@ func InitPlayers(player1 *Joueur, player2 *Joueur) {
 	player2.Couleur = "Jaune"
 	player2.Signe = "X"
 }
+
+func InitGame(player1 *Joueur, player2 *, grille *[][]string)
+
