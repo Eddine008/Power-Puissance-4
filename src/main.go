@@ -32,7 +32,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-		listTemplates.ExecuteTemplate(w, "base", nil)
+		listTemplates.ExecuteTemplate(w, "home", nil)
 	})
 
 	http.ListenAndServe("localhost:8080", nil)
