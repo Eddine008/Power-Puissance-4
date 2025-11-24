@@ -1,25 +1,47 @@
 {{define "game"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Partie Power4</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="grille">
-            {{range $i, $ligne := .Grid.Board}}
-                {{range $j, $case := $ligne}}
-                    {{if eq $case "rouge"}}
-                        <div class="case-rouge"></div>
-                    {{else if eq $case "jaune"}}
-                        <div class="case-jaune"></div>
-                    {{else}}
-                        <div class="case"></div>
+
+    <header>
+        <h1><a href="/">Power4 Web</a></h1>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/game/init">Nouvelle partie</a>
+            <a href="/game/scoreboard">Scoreboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Grille de jeu</h2>
+
+        <div class="grille">
+            {{range .}}          
+                <div class="ligne">
+                    {{range .}}  
+                        {{if eq . "rouge"}}
+                            <div class="case case-rouge"></div>
+                        {{else if eq . "jaune"}}
+                            <div class="case case-jaune"></div>
+                        {{else}}
+                            <div class="case"></div> 
+                        {{end}}
                     {{end}}
-                {{end}}     
+                </div>
             {{end}}
         </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Power4 Web</p>
+    </footer>
+
 </body>
 </html>
 {{end}}
