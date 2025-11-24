@@ -1,44 +1,39 @@
 package main
-
+ 
 import (
-	Power4 "Power4/game"
-	"fmt"
 	"html/template"
 	"net/http"
+	"fmt"
 	"os"
+	Power4 "Power4/game"
 )
-
-// func initGrille(grille *[][]string) {
-// 	rows, cols := 6, 7
-// 	*grille = make([][]string, rows)
-// 	for i := 0; i < rows; i++ {
-// 		(*grille)[i] = make([]string, cols)
-// 		for j := 0; j < cols; j++ {
-// 			(*grille)[i][j] = "-"
-// 		}
-// 	}
-// }
-
-func main() {
-	// var maGrille [][]string
-	// Power4.InitGrille(&maGrille)
-	// for _, ligne := range maGrille {
-	// 	fmt.Println(ligne)
-	// test changement
-
-	listTemplates, errTemplate := template.ParseGlob("./templates/*.html")
-	if errTemplate != nil {
-		fmt.Println(errTemplate.Error())
+ 
+var templates *template.Template
+ 
+func init() {
+	var err error
+	templates, err = template.ParseGlob("./templates/*.html")
+	if err != nil {
+		fmt.Println("Erreur templates :", err)
 		os.Exit(1)
 	}
+}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-
+func main() {
+	http.HandleFunc("/",func(w func(http.ResponseWriter, *http.Request))) {
 		var grille [][]string
 		Power4.InitGrille(&grille)
 
-		listTemplates.ExecuteTemplate(w, "base", nil)
-	})
-	//INITIALISATION DU SERVEUR//
-	http.ListenAndServe("localhost:8080", nil)
+		templates.ExecuteTemplate(w, "home",grille)
+	}
+
+		http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+ 
+	fmt.Println("Serveur lancé sur http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 }
+
+
+ 
+
+
