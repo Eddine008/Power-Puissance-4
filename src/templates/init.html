@@ -1,11 +1,56 @@
+{{define "init"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nouvelle partie - Power4</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    
+
+<header>
+    <h1><a href="/">Power4 Web</a></h1>
+    <nav>
+        <a href="/">Accueil</a>
+        <a href="/game/init">Nouvelle partie</a>
+        <a href="/game/scoreboard">Scoreboard</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Initialisation de la partie</h2>
+
+    <form method="POST" action="/game/init/traitement">
+        <div>
+            <label for="p1">Joueur 1 :</label>
+            <input type="text" id="p1" name="player1" placeholder="Joueur 1">
+        </div>
+
+        <div>
+            <label for="p2">Joueur 2 :</label>
+            <input type="text" id="p2" name="player2" placeholder="Joueur 2">
+        </div>
+
+        <div>
+            <p>Couleur du joueur 1 :</p>
+            <label>
+                <input type="radio" name="color1" value="rouge" checked>
+                Rouge
+            </label>
+            <label>
+                <input type="radio" name="color1" value="jaune">
+                Jaune
+            </label>
+        </div>
+
+        <button type="submit" class="btn primary">Lancer la partie</button>
+    </form>
+</main>
+
+<footer>
+    <p>© 2025 Power4 Web</p>
+</footer>
+
 </body>
 </html>
+{{end}}
