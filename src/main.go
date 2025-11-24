@@ -1,6 +1,7 @@
 package main
 
 import (
+	Power4 "Power4/game"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -32,8 +33,11 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
+		var grille [][]string
+		Power4.InitGrille(&grille)
+
 		listTemplates.ExecuteTemplate(w, "base", nil)
 	})
-
+	//INITIALISATION DU SERVEUR//
 	http.ListenAndServe("localhost:8080", nil)
 }
