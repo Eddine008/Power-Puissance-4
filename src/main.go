@@ -8,37 +8,49 @@ import (
 	"os"
 )
 
-// func initGrille(grille *[][]string) {
-// 	rows, cols := 6, 7
-// 	*grille = make([][]string, rows)
-// 	for i := 0; i < rows; i++ {
-// 		(*grille)[i] = make([]string, cols)
-// 		for j := 0; j < cols; j++ {
-// 			(*grille)[i][j] = "-"
-// 		}
-// 	}
-// }
+var listTemplates *template.Template
 
 func main() {
-	// var maGrille [][]string
-	// Power4.InitGrille(&maGrille)
-	// for _, ligne := range maGrille {
-	// 	fmt.Println(ligne)
-	// test changement
 
-	listTemplates, errTemplate := template.ParseGlob("./templates/*.html")
+	var errTemplate error
+	listTemplates, errTemplate = template.ParseGlob("./templates/*.html")
 	if errTemplate != nil {
 		fmt.Println(errTemplate.Error())
 		os.Exit(1)
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-
 		var grille [][]string
 		Power4.InitGrille(&grille)
-
-		listTemplates.ExecuteTemplate(w, "base", nil)
+		err := listTemplates.ExecuteTemplate(w, "base", grille)
+		if err != nil {
+			http.Error(w, "Erreur template base", http.StatusInternalServerError)
+			fmt.Println("Erreur template base :", err)
+			return
+		}
 	})
-	//INITIALISATION DU SERVEUR//
+
+	http.HandleFunc("/game/play", func(w http.ResponseWriter, r *http.Request) {
+		var grille [][]string
+		Power4.InitGrille(&grille)
+		err := listTemplates.ExecuteTemplate(w, "game", grille)
+		if err != nil {
+			http.Error(w, "Erreur template game", http.StatusInternalServerError)
+			fmt.Println("Erreur template game :", err)
+			return
+		}
+	})
+
+	http.HandleFunc("/game/scoreboard", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Page scoreboard (à compléter).")
+	})
+
+	http.HandleFunc("/game/init", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Page d'initialisation (à compléter avec un formulaire).")
+	})
+
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+
+	fmt.Println("Serveur lancé sur http://localhost:8080")
 	http.ListenAndServe("localhost:8080", nil)
 }
