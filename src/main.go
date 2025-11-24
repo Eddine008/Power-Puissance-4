@@ -1,7 +1,6 @@
 package main
 
 import (
-	Power4 "Power4/game"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -20,19 +19,20 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		var grille [][]string
-		Power4.InitGrille(&grille)
-		err := listTemplates.ExecuteTemplate(w, "base", grille)
-		if err != nil {
-			http.Error(w, "Erreur template base", http.StatusInternalServerError)
-			fmt.Println("Erreur template base :", err)
-			return
-		}
+		// var grille [][]string
+		// Power4.InitGrille(&grille)
+		//err := listTemplates.ExecuteTemplate(w, "base", grille)
+		// if err != nil {
+		// 	http.Error(w, "Erreur template base", http.StatusInternalServerError)
+		// 	fmt.Println("Erreur template base :", err)
+		// 	return
+		// }
+		listTemplates.ExecuteTemplate(w, "base", nil)
 	})
 
 	http.HandleFunc("/game/play", func(w http.ResponseWriter, r *http.Request) {
-		var grille [][]string
-		Power4.InitGrille(&grille)
+		// var grille [][]string
+		// Power4.InitGrille(&grille)
 		err := listTemplates.ExecuteTemplate(w, "game", grille)
 		if err != nil {
 			http.Error(w, "Erreur template game", http.StatusInternalServerError)
