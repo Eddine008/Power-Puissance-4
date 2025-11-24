@@ -24,6 +24,7 @@ func main() {
 	// Power4.InitGrille(&maGrille)
 	// for _, ligne := range maGrille {
 	// 	fmt.Println(ligne)
+	// test changement
 
 	listTemplates, errTemplate := template.ParseGlob("./templates/*.html")
 	if errTemplate != nil {
