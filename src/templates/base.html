@@ -3,35 +3,28 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Power'4 Web</title>
     <link rel="stylesheet" href="/static/style.css">
-
+    <title>Power4 Web</title>
 </head>
 <body>
-    <header>
-<div class="container">
-    <h1><a href="/">Power'4 Web</a></h1>
-    <nav aria-label="Navigation principale">
-<ul>
-<li><a href="/">Accueil</a></li>
-<li><a href="/game/init">Nouvelle partie</a></li>
-<li><a href="/game/scoreboard">Scoreboard</a></li>
-    </ul>
+
+<header>
+    <h1><a href="/">Power4 Web</a></h1>
+    <nav>
+        <a href="/">Accueil</a>
+        <a href="/game/init">Nouvelle partie</a>
+        <a href="/game/scoreboard">Scoreboard</a>
     </nav>
-    </div>
-    </header>
+</header>
 
-    <main class="container">
-        {{block "content" .}}
-        {{end}}
-    </main>
+<main>
+    {{block "content" .}} {{end}}
+</main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Power'4 Web. Tous droits réservés.</p>
-        </div>
-    </footer>
+<footer>
+    <p>© 2025 Power4 Web</p>
+</footer>
+
 </body>
 </html>
-{{end}}       
+{{end}}
