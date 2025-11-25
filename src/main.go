@@ -102,7 +102,7 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("/game/play/traitement", func(w http.ResponseWriter, r *http.Request) {
+http.HandleFunc("/game/play/traitement", func(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
 		return
@@ -114,7 +114,7 @@ func main() {
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
 		return
 	}
-
+	
 	col = col - 1
 
 	joueurCourant := currentGame.JoueurActuel
@@ -143,6 +143,7 @@ func main() {
 		http.Redirect(w, r, "/game/end", http.StatusSeeOther)
 		return
 	}
+
 	if Power4.GrillePleine(currentGame.Grille) {
 		lastResult = Partie{
 			Joueur1:  currentGame.Joueur1.Nom,
