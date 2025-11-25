@@ -81,6 +81,7 @@ func main() {
 		}
 
 		currentGame = Power4.InitGame(name1, name2, color1, color2)
+		fmt.Println(currentGame.JoueurActuel)
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
 	})
 
@@ -152,12 +153,12 @@ func main() {
 			return
 		}
 
-		if currentGame.JoueurActuel == &currentGame.Joueur1 {
-			currentGame.JoueurActuel = &currentGame.Joueur2
-		} else {
+		if currentGame.JoueurActuel.Couleur != currentGame.Joueur1.Couleur {
 			currentGame.JoueurActuel = &currentGame.Joueur1
+		} else {
+			currentGame.JoueurActuel = &currentGame.Joueur2
 		}
-
+		fmt.Println(currentGame.JoueurActuel)
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
 	})
 
