@@ -81,6 +81,7 @@ func main() {
 		}
 
 		currentGame = Power4.InitGame(name1, name2, color1, color2)
+		fmt.Println(currentGame.JoueurActuel)
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
 	})
 
@@ -143,7 +144,6 @@ http.HandleFunc("/game/play/traitement", func(w http.ResponseWriter, r *http.Req
 		http.Redirect(w, r, "/game/end", http.StatusSeeOther)
 		return
 	}
-
 	if Power4.GrillePleine(currentGame.Grille) {
 		lastResult = Partie{
 			Joueur1:  currentGame.Joueur1.Nom,
