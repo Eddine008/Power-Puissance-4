@@ -1,11 +1,46 @@
+{{define "end"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Fin de partie - Power4</title>
+<link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    
+ 
+<header>
+<h1><a href="/">Power4 Web</a></h1>
+<nav>
+<a href="/">Accueil</a>
+<a href="/game/init">Nouvelle partie</a>
+<a href="/game/scoreboard">Scoreboard</a>
+</nav>
+</header>
+ 
+<main>
+<h2>Fin de la partie</h2>
+ 
+    {{if eq .Vainqueur "Égalité"}}
+<p>La partie se termine sur une <strong>égalité</strong>.</p>
+    {{else}}
+<p>Le vainqueur est : <strong>{{.Vainqueur}}</strong></p>
+    {{end}}
+ 
+    <p>
+        Joueur 1 : {{.Joueur1}}<br>
+        Joueur 2 : {{.Joueur2}}<br>
+        Nombre de tours : {{.NbTours}}<br>
+        Date : {{.Date}}
+</p>
+ 
+    <a href="/game/init" class="btn primary">Rejouer</a>
+<a href="/game/scoreboard" class="btn">Voir le scoreboard</a>
+</main>
+ 
+<footer>
+<p>Power4 Web</p>
+</footer>
+ 
 </body>
 </html>
+{{end}}
