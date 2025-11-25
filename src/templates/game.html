@@ -3,44 +3,55 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partie Power4</title>
+    <title>Partie en cours - Power4</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-    <header>
-        <h1><a href="/">Power4 Web</a></h1>
-        <nav>
-            <a href="/">Accueil</a>
-            <a href="/game/init">Nouvelle partie</a>
-            <a href="/game/scoreboard">Scoreboard</a>
-        </nav>
-    </header>
+<header>
+    <h1><a href="/">Power4 Web</a></h1>
+    <nav>
+        <a href="/">Accueil</a>
+        <a href="/game/init">Nouvelle partie</a>
+        <a href="/game/scoreboard">Scoreboard</a>
+    </nav>
+</header>
 
-    <main>
-        <h2>Grille de jeu</h2>
+<main>
+    <h2>Partie en cours</h2>
 
-        <div class="grille">
-            {{range .}}          
-                <div class="ligne">
-                    {{range .}}  
-                        {{if eq . "rouge"}}
-                            <div class="case case-rouge"></div>
-                        {{else if eq . "jaune"}}
-                            <div class="case case-jaune"></div>
-                        {{else}}
-                            <div class="case"></div> 
-                        {{end}}
+    <p>
+        Tour de : <strong>{{.JoueurActuel.Nom}}</strong>
+        ({{.JoueurActuel.Couleur}})
+    </p>
+
+    <div class="grille">
+        {{range .Grille}}
+            <div class="ligne">
+                {{range .}}
+                    {{if eq . "rouge"}}
+                        <div class="case case-rouge"></div>
+                    {{else if eq . "jaune"}}
+                        <div class="case case-jaune"></div>
+                    {{else}}
+                        <div class="case"></div>
                     {{end}}
-                </div>
-            {{end}}
-        </div>
-    </main>
+                {{end}}
+            </div>
+        {{end}}
+    </div>
 
-    <footer>
-        <p>© 2025 Power4 Web</p>
-    </footer>
+    <form method="POST" action="/game/play/traitement">
+        <label for="col">Numéro de colonne (0 à 6) :</label>
+        <input type="number" id="col" name="col" min="0" max="6" required>
+        <button type="submit" class="btn primary">Jouer</button>
+    </form>
+
+</main>
+
+<footer>
+    <p>© 2025 Power4 Web</p>
+</footer>
 
 </body>
 </html>
