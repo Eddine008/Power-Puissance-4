@@ -45,14 +45,14 @@ func InitGame(name1, name2, color1, color2 string) GameState {
 	return game
 }
 
-func JouerCoup(game *GameState, col int) bool {
+func JouerCoup(game *GameState, col int, couleur string) bool {
 	if col < 0 || col >= 7 {
 		return false
 	}
 
 	for ligne := len(game.Grille) - 1; ligne >= 0; ligne-- {
 		if game.Grille[ligne][col] == "-" {
-			game.Grille[ligne][col] = game.JoueurActuel.Couleur
+			game.Grille[ligne][col] = couleur
 			return true
 		}
 	}

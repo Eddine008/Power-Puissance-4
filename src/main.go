@@ -103,62 +103,68 @@ func main() {
 	})
 
 	http.HandleFunc("/game/play/traitement", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
-
-		colStr := r.FormValue("col")
-		col, err := strconv.Atoi(colStr)
-		if err != nil {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
-
-		ok := Power4.JouerCoup(&currentGame, col)
-		if !ok {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
-
-		currentGame.Tour++
-		couleurJoueur := currentGame.JoueurActuel.Couleur
-
-		if Power4.CheckWin(currentGame.Grille, couleurJoueur) {
-			lastResult = Partie{
-				Joueur1:   currentGame.Joueur1.Nom,
-				Joueur2:   currentGame.Joueur2.Nom,
-				Vainqueur: currentGame.JoueurActuel.Nom,
-				Date:      time.Now().Format("02/01/2006 15:04"),
-				NbTours:   currentGame.Tour,
-			}
-
-			historique = append(historique, lastResult)
-			http.Redirect(w, r, "/game/end", http.StatusSeeOther)
-			return
-		}
-
-		if Power4.GrillePleine(currentGame.Grille) {
-			lastResult = Partie{
-				Joueur1:   currentGame.Joueur1.Nom,
-				Joueur2:   currentGame.Joueur2.Nom,
-				Vainqueur: "Égalité",
-				Date:      time.Now().Format("02/01/2006 15:04"),
-				NbTours:   currentGame.Tour,
-			}
-
-			historique = append(historique, lastResult)
-			http.Redirect(w, r, "/game/end", http.StatusSeeOther)
-			return
-		}
-
-		if currentGame.JoueurActuel == &currentGame.Joueur1 {
-			currentGame.JoueurActuel = &currentGame.Joueur2
-		} else {
-			currentGame.JoueurActuel = &currentGame.Joueur1
-		}
-
+	if r.Method != http.MethodPost {
 		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
+		return
+	}
+
+	colStr := r.FormValue("col")
+	col, err := strconv.Atoi(colStr)
+	if err != nil {
+		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
+		return
+	}
+
+	col = col - 1
+
+	joueurCourant := currentGame.JoueurActuel
+
+	ok := Power4.JouerCoup(&currentGame, col, joueurCourant.Couleur)
+	if !ok {
+		http.Redirect(w, r, "/game/play?err=plein", http.StatusSeeOther)
+		return
+	}
+
+	currentGame.Tour++
+
+	couleurJoueur := joueurCourant.Couleur
+
+	if Power4.CheckWin(currentGame.Grille, couleurJoueur) {
+
+		lastResult = Partie{
+			Joueur1:  currentGame.Joueur1.Nom,
+			Joueur2:  currentGame.Joueur2.Nom,
+			Vainqueur: joueurCourant.Nom,
+			Date:     time.Now().Format("02/01/2006 15:04"),
+			NbTours:  currentGame.Tour,
+		}
+		historique = append(historique, lastResult)
+
+		http.Redirect(w, r, "/game/end", http.StatusSeeOther)
+		return
+	}
+	if Power4.GrillePleine(currentGame.Grille) {
+		lastResult = Partie{
+			Joueur1:  currentGame.Joueur1.Nom,
+			Joueur2:  currentGame.Joueur2.Nom,
+			Vainqueur: "Égalité",
+			Date:     time.Now().Format("02/01/2006 15:04"),
+			NbTours:  currentGame.Tour,
+		}
+		historique = append(historique, lastResult)
+
+		http.Redirect(w, r, "/game/end", http.StatusSeeOther)
+		return
+	}
+
+	if currentGame.JoueurActuel == &currentGame.Joueur1 {
+		currentGame.JoueurActuel = &currentGame.Joueur2
+	} else {
+		currentGame.JoueurActuel = &currentGame.Joueur1
+	}
+
+	http.Redirect(w, r, "/game/play", http.StatusSeeOther)
+
 	})
 
 	http.HandleFunc("/game/end", func(w http.ResponseWriter, r *http.Request) {
