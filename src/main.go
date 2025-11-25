@@ -104,54 +104,33 @@ func main() {
 	})
 
 	http.HandleFunc("/game/play/traitement", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
+	if r.Method != http.MethodPost {
+		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
+		return
+	}
 
-		colStr := r.FormValue("col")
-		col, err := strconv.Atoi(colStr)
-		if err != nil {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
+	colStr := r.FormValue("col")
+	col, err := strconv.Atoi(colStr)
+	if err != nil {
+		http.Redirect(w, r, "/game/play", http.StatusSeeOther)
+		return
+	}
 
-		ok := Power4.JouerCoup(&currentGame, col)
-		if !ok {
-			http.Redirect(w, r, "/game/play", http.StatusSeeOther)
-			return
-		}
+	col = col - 1
 
-		currentGame.Tour++
-		couleurJoueur := currentGame.JoueurActuel.Couleur
+	joueurCourant := currentGame.JoueurActuel
 
-		if Power4.CheckWin(currentGame.Grille, couleurJoueur) {
-			lastResult = Partie{
-				Joueur1:   currentGame.Joueur1.Nom,
-				Joueur2:   currentGame.Joueur2.Nom,
-				Vainqueur: currentGame.JoueurActuel.Nom,
-				Date:      time.Now().Format("02/01/2006 15:04"),
-				NbTours:   currentGame.Tour,
-			}
+	ok := Power4.JouerCoup(&currentGame, col, joueurCourant.Couleur)
+	if !ok {
+		http.Redirect(w, r, "/game/play?err=plein", http.StatusSeeOther)
+		return
+	}
 
-			historique = append(historique, lastResult)
-			http.Redirect(w, r, "/game/end", http.StatusSeeOther)
-			return
-		}
+	currentGame.Tour++
 
-		if Power4.GrillePleine(currentGame.Grille) {
-			lastResult = Partie{
-				Joueur1:   currentGame.Joueur1.Nom,
-				Joueur2:   currentGame.Joueur2.Nom,
-				Vainqueur: "Égalité",
-				Date:      time.Now().Format("02/01/2006 15:04"),
-				NbTours:   currentGame.Tour,
-			}
+	couleurJoueur := joueurCourant.Couleur
 
-			historique = append(historique, lastResult)
-			http.Redirect(w, r, "/game/end", http.StatusSeeOther)
-			return
-		}
+	if Power4.CheckWin(currentGame.Grille, couleurJoueur) {
 
 		if currentGame.JoueurActuel.Couleur != currentGame.Joueur1.Couleur {
 			currentGame.JoueurActuel = &currentGame.Joueur1
