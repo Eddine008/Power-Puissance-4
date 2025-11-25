@@ -58,6 +58,7 @@ func JouerCoup(game *GameState, col int, couleur string) bool {
 	}
 
 	return false
+
 }
 
 func GrillePleine(grille [][]string) bool {

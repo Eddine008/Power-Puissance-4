@@ -17,34 +17,36 @@
     </nav>
 </header>
 
-<main>
-    <h2>Initialisation de la partie</h2>
+<main class="init-page">
+    <section class="init-box">
+        <h2>Initialisation de la partie</h2>
 
-    <form method="POST" action="/game/init/traitement">
-        <div>
-            <label for="p1">Joueur 1 :</label>
-            <input type="text" id="p1" name="player1" placeholder="Joueur 1" required>
-        </div>
+        <form method="POST" action="/game/init/traitement">
+            <div>
+                <label for="p1">Joueur 1 :</label>
+                <input type="text" id="p1" name="player1" placeholder="Joueur 1" required>
+            </div>
 
-        <div>
-            <label for="p2">Joueur 2 :</label>
-            <input type="text" id="p2" name="player2" placeholder="Joueur 2" required>
-        </div>
+            <div>
+                <label for="p2">Joueur 2 :</label>
+                <input type="text" id="p2" name="player2" placeholder="Joueur 2" required>
+            </div>
 
-        <div>
-            <p>Couleur du joueur 1 :</p>
-            <label>
-                <input type="radio" name="color1" value="rouge" checked>
-                Rouge
-            </label>
-            <label>
-                <input type="radio" name="color1" value="jaune">
-                Jaune
-            </label>
-        </div>
+            <div>
+                <span>Couleur du joueur 1 :</span>
+                <label>
+                    <input type="radio" name="color1" value="rouge" checked>
+                    Rouge
+                </label>
+                <label>
+                    <input type="radio" name="color1" value="jaune">
+                    Jaune
+                </label>
+            </div>
 
-        <button type="submit" class="btn primary">Lancer la partie</button>
-    </form>
+            <button type="submit" class="btn primary">Lancer la partie</button>
+        </form>
+    </section>
 </main>
 
 <footer>
