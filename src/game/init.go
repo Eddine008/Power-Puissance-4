@@ -46,7 +46,7 @@ func InitGame(name1, name2, color1, color2 string) GameState {
 }
 
 func JouerCoup(game *GameState, col int, couleur string) bool {
-	if col < 0 || col >= 7 {
+	if col < 0 || col > 7 {
 		return false
 	}
 

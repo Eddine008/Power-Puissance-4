@@ -23,7 +23,7 @@ header h1, header h1 a {
     margin: 0;
     font-size: 28px;
     text-decoration: none;
-    color: #5c3cc4;
+    color: rgb(180, 0, 0);
 }
 
 nav a {
@@ -34,7 +34,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #5c3cc4;
+    color: rgb(180, 0, 0);
 }
 
 main {
@@ -55,7 +55,7 @@ main {
 }
 
 .home-header {
-    background-color: #5c3cc4;
+    background-color: rgb(180, 0, 0);
     color: white;
     padding: 32px 40px;
 }
@@ -120,6 +120,8 @@ main {
 }
 
 .init-page {
+    display: center;
+    justify-content: center;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -171,7 +173,7 @@ input[type="radio"] {
 }
 
 .error {
-    color: #b00020;
+    color: rgb(180, 0, 0);
     background-color: #ffe5e5;
     border: 1px solid #f2bcbc;
     padding: 12px;
@@ -183,8 +185,8 @@ input[type="radio"] {
 div.grille {
     display: inline-block;
     padding: 26px;
-    background-color: #1976d2;
-    border: 4px solid #0b3c78;
+    background-color: black;
+    border: 4px solid  white;
     border-radius: 12px;
     margin-top: 30px;
 }
@@ -198,7 +200,7 @@ div.grille {
     height: 58px;
     margin: 4px;
     border-radius: 50%;
-    border: 2px solid #0b3c78;
+    border: 2px solid black;
     background-color: #fff;
 }
 
@@ -237,4 +239,8 @@ table tbody tr:nth-child(even) {
     div.grille {
         transform: scale(0.85);
     }
+}
+
+.footer {
+
 }
