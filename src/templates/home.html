@@ -1,0 +1,38 @@
+{{define "content"}}
+<section class="home">
+  <header class="home-header">
+    <h2>Power'4 Web</h2>
+    <p class="tagline">Un Puissance 4 multijoueur local, avec ton ami sur le meme écran, simple, accessible et incroyable.</p>
+  </header>
+  <div class="menu">
+  <article class="rules">
+    <h3>Règles rapides</h3>
+    <ul>
+      <li>Grille : 7 colonnes x 6 lignes (42 cases).</li>
+      <li>Deux joueurs alternent les tours ; jetons rouges et jaunes.</li>
+      <li>Un jeton placé dans une colonne tombe jusqu'à la première case vide en bas.</li>
+      <li>Victoire : 4 jetons alignés (ligne, colonne, diagonale). Égalité si la grille est pleine sans victoire.</li>
+    </ul>
+  </article>
+
+  <article class="howto">
+    <h3>Mode d'emploi rapide</h3>
+    <ol>
+      <li>Cliquez sur "Commencer une partie".</li>
+      <li>Saisissez les pseudos et choisissez les couleurs sur la page d'initialisation.</li>
+      <li>Sur la page de jeu, sélectionnez la colonne où déposer votre jeton.</li>
+      <li>Le serveur vérifie la validité du coup et affiche l'état de la grille.</li>
+    </ol>
+  </article>
+
+  <div class="home-actions">
+    <a class="btn primary" href="/game/init" role="button">Commencer une partie</a>
+    <a class="btn" href="/game/scoreboard" role="button">Voir le scoreboard</a>
+  </div>
+
+  <footer class="home-note">
+    <p class="small"> Ciryl te regarde jouer !</p>
+  </footer>
+</div>
+</section>
+{{end}}
